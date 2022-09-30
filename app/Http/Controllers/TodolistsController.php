@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Todolist;
 use Illuminate\Http\Request;
 
 class TodolistsController extends Controller
@@ -13,7 +14,8 @@ class TodolistsController extends Controller
      */
     public function index()
     {
-       
+        $todolists = Todolist::all();
+        return view('todolists.index', ['todolists' => $todolists]);
     }
 
     /**
@@ -23,7 +25,9 @@ class TodolistsController extends Controller
      */
     public function create()
     {
-        //
+        $todolist = new Todolist;
+        
+        return view('todolists.create', ['todolist' => $todolist ]);
     }
 
     /**
@@ -34,7 +38,11 @@ class TodolistsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $todolist = new Todolist;
+        $todolist->content = $request->content;
+        $todolist->save();
+        
+        return redirect('/');
     }
 
     /**
