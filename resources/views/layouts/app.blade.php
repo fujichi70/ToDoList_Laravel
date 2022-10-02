@@ -8,25 +8,21 @@
     </head>
 
     <body>
-        <header class="mb-4">
-            <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-                {{-- トップページへのリンク --}}
-                <a class="navbar-brand" href="/">TodolistBoard</a>
+         {{-- ナビゲーションバー --}}
+        @include('commons.navbar')
 
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#nav-bar">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="nav-bar">
-                    <ul class="navbar-nav mr-auto"></ul>
-                    <ul class="navbar-nav">
-                        {{-- ToDo作成ページへのリンク --}}
-                        <li class="nav-item">{!! link_to_route('Todolists.create', '新規ToDoの投稿', [], ['class' => 'nav-link']) !!}</li>
-                    </ul>
-                </div>
-            </nav>
-        </header>
-
+        <div class="container">
+            @yield('content')
+        </div>
+        
+        @if (count($errors) > 0)
+            <ul class="alert alert-danger" role="alert">
+                @foreach ($errors->all() as $error)
+                    <li class="ml-4">{{ $error }}</li>
+                @endforeach
+            </ul>
+        @endif
+    
         <div class="container">
             @yield('content')
         </div>

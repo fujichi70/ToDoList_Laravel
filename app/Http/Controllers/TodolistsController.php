@@ -15,7 +15,10 @@ class TodolistsController extends Controller
     public function index()
     {
         $todolists = Todolist::all();
-        return view('todolists.index', ['todolists' => $todolists]);
+        
+        return view('Todolists.index', [
+            'todolists' => $todolists
+        ]);
     }
 
     /**
@@ -27,7 +30,9 @@ class TodolistsController extends Controller
     {
         $todolist = new Todolist;
         
-        return view('todolists.create', ['todolist' => $todolist ]);
+        return view('Todolists.create', [
+            'todolist' => $todolist 
+        ]);
     }
 
     /**
@@ -38,6 +43,11 @@ class TodolistsController extends Controller
      */
     public function store(Request $request)
     {
+        
+        $request->validate([
+            'content' => 'required|max:255',
+        ]);
+        
         $todolist = new Todolist;
         $todolist->content = $request->content;
         $todolist->save();
@@ -53,7 +63,12 @@ class TodolistsController extends Controller
      */
     public function show($id)
     {
-        //
+        $todolist = Todolist::findOrFail($id);
+
+        
+        return view('Todolists.show', [
+            'todolist' => $todolist,
+        ]);
     }
 
     /**
@@ -64,7 +79,12 @@ class TodolistsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $todolist = Todolist::findOrFail($id);
+
+        
+        return view('Todolists.edit', [
+            'todolist' => $todolist,
+        ]);
     }
 
     /**
@@ -76,7 +96,13 @@ class TodolistsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $todolist = Todolist::findOrFail($id);
+        
+        $todolist->content = $request->content;
+        $todolist->save();
+
+        
+        return redirect('/');
     }
 
     /**
@@ -87,6 +113,11 @@ class TodolistsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $todolist = Todolist::findOrFail($id);
+        
+        $todolist->delete();
+
+        
+        return redirect('/');
     }
 }
