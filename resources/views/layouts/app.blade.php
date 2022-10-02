@@ -12,18 +12,9 @@
         @include('commons.navbar')
 
         <div class="container">
-            @yield('content')
-        </div>
-        
-        @if (count($errors) > 0)
-            <ul class="alert alert-danger" role="alert">
-                @foreach ($errors->all() as $error)
-                    <li class="ml-4">{{ $error }}</li>
-                @endforeach
-            </ul>
-        @endif
-    
-        <div class="container">
+            {{-- エラーToDo --}}
+            @include('commons.error_Todolists')
+
             @yield('content')
         </div>
 

@@ -96,6 +96,10 @@ class TodolistsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'content' => 'required|max:255',
+        ]);
+        
         $todolist = Todolist::findOrFail($id);
         
         $todolist->content = $request->content;
