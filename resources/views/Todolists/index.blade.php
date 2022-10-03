@@ -9,13 +9,16 @@
             <thead>
                 <tr>
                     <th>id</th>
+                    <th>タイトル</th>
                     <th>ToDo</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($todolists as $todolist)
                 <tr>
-                    <td>{{ $todolist->id }}</td>
+                    {{-- ToDo詳細ページへのリンク --}}
+                    <td>{!! link_to_route('Todolists.show', $todolist->id, $todolist->id, ['todolist' => $todolist->id]) !!}</td>
+                    <td>{{ $todolist->title }}</td>
                     <td>{{ $todolist->content }}</td>
                 </tr>
                 @endforeach

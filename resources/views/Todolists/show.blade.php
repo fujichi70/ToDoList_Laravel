@@ -9,17 +9,18 @@
             <th>id</th>
             <td>{{ $todolist->id }}</td>
         </tr>
-        @foreach ($Todolists as $todolist)
-            <tr>
-                {{-- ToDo詳細ページへのリンク --}}
-                <td>{!! link_to_route('Todolists.show', $todolist->id, ['todolist' => $todolist->id]) !!}</td>
-                <td>{{ $todolist->content }}</td>
-            </tr>
-        @endforeach
+        <tr>
+            <th>タイトル</th>
+            <td>{{ $todolist->title }}</td>
+        </tr>
+        <tr>
+            <th>ToDo</th>
+            <td>{{ $todolist->content }}</td>
+        </tr>
     </table>
     
     {{-- ToDo編集ページへのリンク --}}
-    {!! link_to_route('Todolists.edit', 'このToDoを編集', ['todolist' => $todolist->id], ['class' => 'btn btn-light']) !!}
+    {!! link_to_route('Todolists.edit', 'このToDoを編集', $todolist->id, ['class' => 'btn btn-light']) !!}
     
     {{-- ToDo削除フォーム --}}
     {!! Form::model($todolist, ['route' => ['Todolists.destroy', $todolist->id], 'method' => 'delete']) !!}

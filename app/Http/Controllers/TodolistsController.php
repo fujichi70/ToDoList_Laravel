@@ -45,12 +45,16 @@ class TodolistsController extends Controller
     {
         
         $request->validate([
+            'title' => 'required|max:255',
             'content' => 'required|max:255',
         ]);
+
         
         $todolist = new Todolist;
+        $todolist->title = $request->title;
         $todolist->content = $request->content;
         $todolist->save();
+
         
         return redirect('/');
     }
@@ -97,11 +101,14 @@ class TodolistsController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
+            'title' => 'required|max:255',
             'content' => 'required|max:255',
         ]);
+
         
         $todolist = Todolist::findOrFail($id);
         
+        $todolist->title = $request->title;
         $todolist->content = $request->content;
         $todolist->save();
 
