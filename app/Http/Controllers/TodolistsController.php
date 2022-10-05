@@ -14,7 +14,7 @@ class TodolistsController extends Controller
      */
     public function index()
     {
-        $todolists = Todolist::all();
+        $todolists = Todolist::orderBy('id', 'desc')->paginate(25);
         
         return view('Todolists.index', [
             'todolists' => $todolists

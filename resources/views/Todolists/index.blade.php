@@ -26,6 +26,9 @@
         </table>
     @endif
     
+    {{-- ページネーションのリンク --}}
+    {{ $todolists->links() }}
+    
     {{-- ToDo作成ページへのリンク --}}
     {!! link_to_route('Todolists.create', '新規ToDoの投稿', [], ['class' => 'btn btn-primary']) !!}
 
