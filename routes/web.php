@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TodolistsController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,10 +15,7 @@ use App\Http\Controllers\TodolistsController;
 |
 */
 
-// Route::get('/', [TodolistsController::class,'index']);
+Route::get('/', [TodolistsController::class,'index']);
 
-// Route::resource('Todolists', 'TodolistsController');
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::resource('Todolists', TodolistsController::class);

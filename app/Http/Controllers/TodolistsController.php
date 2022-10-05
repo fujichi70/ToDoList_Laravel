@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Todolist;
 use Illuminate\Http\Request;
 
 class TodolistsController extends Controller
@@ -13,7 +14,11 @@ class TodolistsController extends Controller
      */
     public function index()
     {
-       
+        $todolists = Todolist::orderBy('id', 'desc')->paginate(25);
+        
+        return view('Todolists.index', [
+            'todolists' => $todolists
+        ]);
     }
 
     /**
@@ -23,7 +28,11 @@ class TodolistsController extends Controller
      */
     public function create()
     {
-        //
+        $todolist = new Todolist;
+        
+        return view('Todolists.create', [
+            'todolist' => $todolist 
+        ]);
     }
 
     /**
@@ -34,7 +43,20 @@ class TodolistsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        $request->validate([
+            'title' => 'required|max:255',
+            'content' => 'required|max:255',
+        ]);
+
+        
+        $todolist = new Todolist;
+        $todolist->title = $request->title;
+        $todolist->content = $request->content;
+        $todolist->save();
+
+        
+        return redirect('/');
     }
 
     /**
@@ -45,7 +67,12 @@ class TodolistsController extends Controller
      */
     public function show($id)
     {
-        //
+        $todolist = Todolist::findOrFail($id);
+
+        
+        return view('Todolists.show', [
+            'todolist' => $todolist,
+        ]);
     }
 
     /**
@@ -56,7 +83,12 @@ class TodolistsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $todolist = Todolist::findOrFail($id);
+
+        
+        return view('Todolists.edit', [
+            'todolist' => $todolist,
+        ]);
     }
 
     /**
@@ -68,7 +100,20 @@ class TodolistsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'title' => 'required|max:255',
+            'content' => 'required|max:255',
+        ]);
+
+        
+        $todolist = Todolist::findOrFail($id);
+        
+        $todolist->title = $request->title;
+        $todolist->content = $request->content;
+        $todolist->save();
+
+        
+        return redirect('/');
     }
 
     /**
@@ -79,6 +124,11 @@ class TodolistsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $todolist = Todolist::findOrFail($id);
+        
+        $todolist->delete();
+
+        
+        return redirect('/');
     }
 }
